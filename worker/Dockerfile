@@ -1,7 +1,5 @@
 FROM maven:3.5-jdk-8-alpine AS builder
 
-MAINTAINER Alexandre Frydman "@@epitech.eu"
-
 COPY src /src
 
 COPY pom.xml ./
