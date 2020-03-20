@@ -1,7 +1,5 @@
 FROM node:10
 
-MAINTAINER Alexandre Frydman "@@epitech.eu"
-
 WORKDIR /usr/src/app
 
 COPY package*.json ./
