@@ -1,7 +1,5 @@
 FROM python:3
 
-MAINTAINER Alexandre Frydman "@@epitech.eu"
-
 RUN apt-get update -y && \
     apt-get install -y python3-pip python3-dev
 
