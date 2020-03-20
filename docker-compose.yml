@@ -1,0 +1,55 @@
+services:
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASS: password
+    restart: always
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: "redis:alpine"
+    restart: always
+    ports:
+      - "6379:6379"
+
+  worker:
+    build:
+      context: worker
+      dockerfile: Dockerfile
+    depends_on:
+        - redis
+        - db
+
+  poll:
+    build:
+      context: poll
+      dockerfile: Dockerfile
+    environment:
+      FLASK_ENV: development
+    ports: 
+        - "5000:80"
+    depends_on:
+        - redis
+
+  result:
+    build:
+      context: result
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      FLASK_ENV: development
+    ports: 
+        - "5001:80"
+    depends_on:
+        - db
+
+version: '3.5'
+
+volumes:
+  redis:
+  db:
+  db-data:
